@@ -2,19 +2,21 @@
 let cells = ['', '', '', '', '', '', '', '', ''];
 let currentPlayer = 'X';
 let result = document.querySelector('.result');
+let boardLocked = false; // Add a variable to track if the board is locked
 
 // Function to handle player moves
 const ticTacToe = (cell, index) => {
-    if (cells[index] === '' && !result.textContent) {
+    if (cells[index] === '' && !result.textContent && !boardLocked) {
         cells[index] = currentPlayer;
         cell.textContent = currentPlayer;
         cell.classList.add(currentPlayer);
 
         if (checkWin(currentPlayer)) {
             result.textContent = `${currentPlayer} wins!`;
-            disableCells();
+            boardLocked = true; // Lock the board after a win
         } else if (cells.every(cell => cell !== '')) {
             result.textContent = "It's a draw!";
+            boardLocked = true; // Lock the board after a draw
         } else {
             currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
             result.textContent = `Current Player: ${currentPlayer}`;
@@ -44,6 +46,7 @@ const resetGame = () => {
     cells = ['', '', '', '', '', '', '', '', ''];
     currentPlayer = 'X';
     result.textContent = '';
+    boardLocked = false; // Unlock the board
     const cellsElements = document.querySelectorAll('.cell');
     cellsElements.forEach(cell => {
         cell.textContent = '';

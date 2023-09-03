@@ -9,7 +9,7 @@ const ticTacToe = (cell, index) => {
         cells[index] = currentPlayer;
         cell.textContent = currentPlayer;
         cell.classList.add(currentPlayer);
-        
+
         if (checkWin(currentPlayer)) {
             result.textContent = `${currentPlayer} wins!`;
             disableCells();
